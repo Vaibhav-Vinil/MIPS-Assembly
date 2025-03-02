@@ -1,0 +1,51 @@
+#linear search procedure
+
+.data
+str1: .asciiz "wt to search for"
+str2: .asciiz "found"
+array: .word 10,20,30,40,50,60,44
+len: .word 7
+
+.text
+main:
+li $v0,4
+la $a0,str1
+syscall
+
+
+li $v0,5
+syscall
+move $t0,$v0   			#t0 has search value
+
+lw $t1,len			#$t1 has the length of array
+la $t4,array
+
+loop:
+lw $t2,array
+beq $t2,$t0 , found
+addi $t4,$t4,4
+lw array,$t4
+
+beq $t1,$0, printing
+addi $t1,$t1,-1
+
+j loop
+
+
+
+
+
+#found
+found:
+li $v0,4
+la $a0,str2
+syscall
+
+
+#printing index
+printing:
+
+
+exit:
+li $v0,10
+syscall

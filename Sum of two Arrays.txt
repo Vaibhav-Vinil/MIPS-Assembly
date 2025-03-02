@@ -1,0 +1,45 @@
+#sum of 2 arrays
+.data
+a1: .word 11,12,12
+a2: .word 14,2,3
+a3: .word 0,0,0
+len: .word 3
+.text
+main:
+
+la $t0,a1
+la $t1,a2
+la $t3,a3
+
+li $s0,3
+li $s1,0
+
+L1:
+addi $s1,$s1,1
+lw $t4,0($t0)
+lw $t5,0($t1)
+add $t6,$t4,$t5
+sw $t6,0($t3)
+
+addi $t0,$t0,4
+addi $t1,$t1,4
+addi $t3,$t3,4
+
+
+bne $s0,$s1 L1
+
+
+#printing the array
+la $t0,a3
+li $s5,3
+L2:
+addi $s5,$s5,-1
+lw $a0,0($t0)
+
+li $v0,1
+syscall
+add $t0,$t0,4
+bnez $s5 L2
+
+li $v0,10
+syscall

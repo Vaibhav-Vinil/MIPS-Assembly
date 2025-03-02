@@ -1,0 +1,45 @@
+.data
+msg1: .asciiz "enter base"
+msg2: .asciiz "enter power"
+
+
+
+.text
+main:
+
+
+li $s3,5			#s3 has the base 5
+
+
+
+li $s0,2			#s0 has the power 2
+addi $t3,1			#t3 has the 1 (init)
+
+jal pow
+exit:
+li $v0,10
+syscall
+
+
+
+
+pow:
+bne $s0,$0,rec
+li $v0,1
+j $ra
+
+rec:
+addi $sp,-4
+sw $ra,0($sp)
+mul $v0,$v0,$s3
+addi $s0,-1
+jal pow
+
+
+addi $sp,4
+lw $ra,0($sp)
+j $ra
+
+
+
+

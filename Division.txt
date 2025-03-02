@@ -1,0 +1,74 @@
+#divisionfunction
+.data
+
+str1: .asciiz "enter a"
+str2: .asciiz "enter b"
+str3: .asciiz "quotient"
+str4: .asciiz "reminder"
+
+.text
+
+main:
+
+li $v0,4
+la $a0,str1
+syscall
+
+
+#reading x
+li $v0,5
+syscall
+move $t0,$v0			#t0 has x
+
+
+li $v0,4
+la $a0,str2
+syscall
+
+#reading y
+li $v0,5
+syscall
+move $t1,$v0			#t1 has y
+
+
+
+jal quotient
+
+
+j exit
+
+quotient:
+div $t0 , $t1
+
+mfhi $t0
+mflo $t1
+
+li $v0,4
+la $a0,str3
+syscall
+
+li $v0,1
+move $a0,$t1
+syscall
+
+
+li $v0,4
+la $a0,str4
+syscall
+
+li $v0,1
+move $a0,$t0
+syscall
+
+jr $ra
+
+
+
+
+
+
+
+#exit code
+exit:
+li $v0,10
+syscall

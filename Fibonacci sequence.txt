@@ -1,0 +1,58 @@
+.data
+msg: .asciiz "inp?"
+
+
+.text
+main:
+la $a0,msg
+li $v0,4
+syscall
+
+li $v0,5
+syscall
+move $t0,$v0
+#inp in $t0
+
+
+#init t1 and t2
+addi $t1,$t1,0
+addi $t2,$t2,1
+
+
+
+addi $t0,-2
+
+move $a0,$t1
+li $v0,1
+syscall
+
+move $a0,$t2
+li $v0,1
+syscall
+
+
+proc:
+beq $t0,0,exit
+add $t3,$t2,$t1
+
+move $a0,$t3
+li $v0,1
+syscall
+
+move $t1,$t2
+move $t2,$t3
+addi $t0,-1
+j proc
+
+
+
+
+
+
+
+
+
+exit:
+li $v0,10
+syscall
+

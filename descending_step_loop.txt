@@ -1,0 +1,58 @@
+#descending startstop step
+
+.data
+str1: .asciiz "start"
+str2: .asciiz "stop"
+str3: .asciiz "step"
+
+.text
+main:
+
+#putting start stp stp in $ t0 t1 t2
+
+
+li $v0,4
+la $a0,str1
+syscall
+
+
+li $v0,5
+syscall
+move $t0,$v0
+
+li $v0,4
+la $a0,str2
+syscall
+li $v0,5
+syscall
+move $t1,$v0
+
+
+li $v0,4
+la $a0,str3
+syscall
+li $v0,5
+syscall
+move $t2,$v0
+
+
+
+L1:
+bge $t1,$t0, exit
+
+#print
+li $v0,1
+move $a0,$t0
+syscall
+
+sub $t0,$t0,$t2
+
+
+
+
+j L1
+
+
+exit:
+li $v0,10
+syscall

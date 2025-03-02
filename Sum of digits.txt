@@ -1,0 +1,41 @@
+#sum of digits in a num
+.data 
+str1: .asciiz "enter a number: "
+str2: .asciiz "sum of digits are "
+
+.text
+main:
+
+li $v0,4
+la $a0,str1
+syscall
+
+li $v0,5
+syscall
+move $a0,$v0
+li $t0,10
+
+
+L1:
+div $a0,$t0
+
+mflo $a0
+mfhi $a1
+
+add $t3,$t3,$a1
+bnez $a0, L1
+
+
+
+li $v0,4
+la $a0,str2
+syscall
+
+li $v0,1
+move $a0,$t3
+syscall
+
+
+
+li $v0,10
+syscall

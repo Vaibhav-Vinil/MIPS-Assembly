@@ -1,0 +1,56 @@
+.data
+inp: .asciiz "qaaq"
+rev: .space 50
+msg: .asciiz "palin"
+
+.text
+main:
+
+la $t0,inp
+la $t4,rev
+
+
+one:
+lbu $t1,0($t0)
+beqz $t1,two
+addi $t0,1
+j one
+
+#now we at end of string
+two:
+addi $t0,-1
+lbu $t1,0($t0)
+beqz $t1,end1
+sb $t1, 0($t4)
+addi $t4,1
+
+j two
+
+
+end1:
+li $v0,4
+la $a0,rev
+syscall
+
+la $t1,rev
+la $t2,inp
+up:
+lbu $t3,0($t1)
+lbu $t4,0($t2)
+beq $t3,$0,troll
+bne $t3,$t4,extt
+addi $t1,1
+addi $t2,1
+j up
+
+
+
+troll:
+li $v0,4
+la $a0,msg
+syscall
+
+extt:
+li $v0,10
+syscall
+
